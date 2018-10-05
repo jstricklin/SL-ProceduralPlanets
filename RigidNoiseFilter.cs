@@ -23,7 +23,7 @@ public class RigidNoiseFilter : INoiseFilter {
             v *= v;
             v *= weight;
             weight = v;
-            noiseValue += amplitude;
+            noiseValue += v * amplitude;
             frequency *= settings.roughness;
             amplitude *= settings.persistence;
         }

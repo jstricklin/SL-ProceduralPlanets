@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class NoiseSettings {
 
-    public enum FilterType { Simple, Rigid }
+    public enum FilterType { Simple, Rigid };
     public FilterType filterType;
 
     public float minValue;
