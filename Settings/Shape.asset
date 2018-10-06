@@ -33,7 +33,7 @@ MonoBehaviour:
         baseRoughness: 0.85
         roughness: 2.75
         persistence: 0.41
-        center: {x: 0, y: 0, z: 0}
+        center: {x: 2, y: 5, z: 30.41}
   - enabled: 1
     useFirstLayerAsMask: 1
     noiseSettings:

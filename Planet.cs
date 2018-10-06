@@ -13,6 +13,9 @@ public class Planet : MonoBehaviour {
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
 
+    [SerializeField, HideInInspector]
+    MeshCollider[] colliders;
+
     public ColorSettings colorSettings;
     public ShapeSettings shapeSettings;
     [HideInInspector]
@@ -47,7 +50,6 @@ public class Planet : MonoBehaviour {
             {
                 GameObject meshObj = new GameObject("mesh");
                 meshObj.transform.parent = transform;
-
                 meshObj.AddComponent<MeshRenderer>();
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
@@ -62,6 +64,7 @@ public class Planet : MonoBehaviour {
     public void GeneratePlanet(){
         Initialize();
         GenerateMesh();
+        GenerateColliders();
         GenerateColors();
     }
 
@@ -92,5 +95,24 @@ public class Planet : MonoBehaviour {
     void GenerateColors(){
             colorGenerator.UpdateColors();
     }
+    public void GenerateColliders()
+    {
+        if (colliders.Length == 0)
+        {
+            Debug.Log("colliders null");
+            colliders = new MeshCollider[meshFilters.Length];
+            GameObject collContainer = new GameObject("collContainer");
+            collContainer.transform.parent = transform;
+            for (int i = 0; i < colliders.Length; i++){
 
+                GameObject collider = new GameObject("collider");
+                collider.transform.parent = collContainer.transform;
+                colliders[i] = collider.AddComponent<MeshCollider>();
+            }
+        }
+        Debug.Log("colliders exist.");
+        for (int i = 0; i < colliders.Length; i++){
+            colliders[i].sharedMesh = meshFilters[i].sharedMesh;
+        }
+    }
 }
