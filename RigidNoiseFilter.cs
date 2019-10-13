@@ -7,6 +7,7 @@ public class RigidNoiseFilter : INoiseFilter {
 
     NoiseSettings.RigidNoiseSettings settings;
     Noise noise = new Noise();
+    //public bool canSpawnOn = false;
 
     public RigidNoiseFilter(NoiseSettings.RigidNoiseSettings settings){
         this.settings = settings;
@@ -27,7 +28,6 @@ public class RigidNoiseFilter : INoiseFilter {
             frequency *= settings.roughness;
             amplitude *= settings.persistence;
         }
-
         noiseValue = Mathf.Max(0, noiseValue - settings.minValue);
         return noiseValue * settings.strength;
     }

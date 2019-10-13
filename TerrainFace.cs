@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrainFace : MonoBehaviour {
-
+public class TerrainFace {
+    
     ShapeGenerator shapeGenerator;
     Mesh mesh;
     int resolution;
@@ -20,10 +20,10 @@ public class TerrainFace : MonoBehaviour {
         axisA = new Vector3(localUp.y, localUp.z, localUp.x);
         axisB = Vector3.Cross(localUp, axisA);
 
-
     }    
 
     public void ConstructMesh(){
+        //Debug.Log("constructing mesh " + mesh != null);
         Vector3[] vertices = new Vector3[resolution * resolution];
         // (resolution -1) * (resolution -1) counts quads, times 6 to count all four cube sides
         int[] triangles = new int[(resolution - 1) * (resolution - 1) * 6]; 

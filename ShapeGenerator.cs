@@ -2,10 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShapeGenerator {
+[System.Serializable]
+public struct PointElevationValue
+{
+    public Vector3 position;
+    public float value;
+    public PointElevationValue(Vector3 pos, float val)
+    {
+        this.position = pos;
+        this.value = val;
+    }
+}
 
+public class ShapeGenerator {
+    public List<PointElevationValue> pointElevationValues = new List<PointElevationValue>();
     ShapeSettings settings;
-    INoiseFilter[] noiseFilters;
+    public INoiseFilter[] noiseFilters;
     public MinMax elevationMinMax;
 
     public void UpdateSettings(ShapeSettings settings) {
@@ -24,6 +36,8 @@ public class ShapeGenerator {
             firstLayerValue = noiseFilters[0].Evaluate(pointOnUnitSphere);
             if (settings.noiseLayers[0].enabled){
                 elevation = firstLayerValue;
+                if (settings.noiseLayers[0].noiseSettings.filterType == NoiseSettings.FilterType.Simple) {
+                }
             }
         }
         for (int i = 1; i < noiseFilters.Length; i++){
@@ -34,6 +48,9 @@ public class ShapeGenerator {
         }
         elevation = settings.planetRadius * (1 + elevation);
         elevationMinMax.AddValue(elevation);
+        PointElevationValue pointVal = new PointElevationValue(pointOnUnitSphere * elevation, (pointOnUnitSphere * elevation).magnitude);
+        pointElevationValues.Add(pointVal);
+
         return pointOnUnitSphere * elevation;
     }
 
